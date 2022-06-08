@@ -20,6 +20,8 @@ const persistConfig = {
   storage,
 };
 
+// export cons
+
 export default function configureStore(preloadedState: any) {
   const sagaMiddleware = createSagaMiddleware();
 
