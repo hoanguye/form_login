@@ -1,12 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
+import { Field } from 'formik';
 import './input.scss';
 interface Props {
-  handleOnChange: (key: string, value: string) => void;
-  value: string;
-  id: string;
-  errorMessage: string;
+  name: string;
+  errorMessage: string | undefined;
   type: string;
 }
 
@@ -14,16 +12,8 @@ const Input = (props: Props) => {
   return (
     <>
       <div className="input">
-        <label>
-          <FormattedMessage id={props.id} />
-        </label>
-        <input
-          type={props.type}
-          value={props.value}
-          onChange={(e) => {
-            props.handleOnChange(props.id, e.target.value);
-          }}
-        />
+        <label htmlFor={props.name}>{props.name}</label>
+        <Field className="input-element" name={props.name} type={props.type} />
       </div>
       {props.errorMessage && (
         <div className="message_err">

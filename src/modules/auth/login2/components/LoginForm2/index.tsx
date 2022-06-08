@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import { ILoginParams, ILoginValidation } from '../../../../../models/auth';
-import { validateLogin } from '../../../utils';
-import Input from '../Input';
 
+import Input from '../Input';
 import './LoginForm2.scss';
 interface Props {
   onSubmit(values: ILoginValidation): void;
@@ -12,65 +13,51 @@ interface Props {
 }
 
 const LoginForm2 = (props: Props) => {
-  const [data, setData] = useState<ILoginParams>({ email: '', password: '', rememberMe: false });
-  const [errorMessage, setErrorMessage] = useState({ errEmail: '', errPassword: '' });
-  const handleOnSubmit = (e: any) => {
-    if (validateLogin(data).email || validateLogin(data).password) {
-      e.preventDefault();
-      setErrorMessage({ errEmail: validateLogin(data).email, errPassword: validateLogin(data).password });
-      return;
-    } else {
-      e.preventDefault();
-      props.onSubmit({ email: data.email, password: data.password });
-    }
+  const handleOnSubmit = (values: ILoginParams) => {
+    props.onSubmit({ email: values.email, password: values.password });
   };
-  const handleOnChange = (key: string, value: string) => {
-    setData({ ...data, [key]: value });
+
+  const initialValues: ILoginParams = {
+    email: '',
+    password: '',
+    rememberMe: false,
   };
-  console.log(data);
+
+  const signUpSchema = yup.object().shape({
+    email: yup.string().email('Invalid email').required('required email'),
+    password: yup.string().min(4, 'password more than 4 characters').required('required password'),
+  });
   return (
-    <form onSubmit={handleOnSubmit} className="form">
-      {props.errorMessage && <div className="message-header">{props.errorMessage}</div>}
-
-      <Input value={data.email} handleOnChange={handleOnChange} id="email" errorMessage={errorMessage.errEmail} type="email" />
-
-      <Input
-        value={data.password}
-        handleOnChange={handleOnChange}
-        id="password"
-        errorMessage={errorMessage.errPassword}
-        type="password"
-      />
-      <div className="checkbox">
-        <input
-          type="checkbox"
-          checked={data.rememberMe}
-          onChange={(e) => {
-            setData({ ...data, rememberMe: e.target.checked });
-          }}
-        />
-        <label>
-          <FormattedMessage id="Lưu thông tin đăng nhập" />
-        </label>
-      </div>
-
-      <button
-        onClick={(e) => {
-          // e.preventDefault();
-          if (props.loading) {
-            e.preventDefault();
-            return;
-          } else {
-            return;
-          }
+    <div className="form-wrapper">
+      <Formik
+        initialValues={initialValues}
+        validationSchema={signUpSchema}
+        onSubmit={(values) => {
+          console.log(values);
+          handleOnSubmit(values);
         }}
-        className="btn"
-        type="submit"
       >
-        {props.loading && <div className="spinner-border spinner-border-sm text-light mr-5" role="status" />}
-        Đăng nhập
-      </button>
-    </form>
+        {({ errors }) => (
+          <Form>
+            {props.errorMessage && <div className="message-header">{props.errorMessage}</div>}
+
+            <Input name="email" errorMessage={errors.email} type="email" />
+
+            <Input name="password" errorMessage={errors.password} type="password" />
+            <div className="checkbox">
+              <Field type="checkbox" name="rememberMe" />
+              <label>
+                <FormattedMessage id="Lưu thông tin đăng nhập" />
+              </label>
+            </div>
+            <button className="btn" type="submit">
+              {props.loading && <div className="spinner-border spinner-border-sm text-light mr-5" role="status" />}
+              Đăng nhập
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 
