@@ -10,5 +10,8 @@
   "minPasswordInvalid": "Mật khẩu tối thiểu 4 ký tự",
   "confirmPasswordInvalid": "Mật khẩu nhập lại không hợp lệ",
   "confirmPasswordRequire": "Vui lòng nhập lại mật khẩu",
+  "genderRequire": "Vui lòng chọn giới tính",
+  "regionRequire": "Vui lòng chọn lãnh thổ",
+  "stateRequire": "Vui lòng chọn thành phố",
   "register": "Đăng Ký"
 }

@@ -46,9 +46,9 @@ const RegisterForm = (props: Props) => {
       .required('confirmPasswordRequire')
       .oneOf([yup.ref('password')], 'confirmPasswordInvalid'),
     name: yup.string().required('nameRequire'),
-    gender: yup.string().required('Please retype your gender'),
-    region: yup.string().required('Please retype your country'),
-    state: yup.string().required('Please retype your city'),
+    gender: yup.string().required('genderRequire'),
+    region: yup.string().required('regionRequire'),
+    state: yup.string().required('stateRequire'),
   });
 
   const [locations, setLocations] = useState<any[]>([]);
@@ -96,7 +96,7 @@ const RegisterForm = (props: Props) => {
               handleSelectRegion={handleSelectRegion}
             />
             <InputSelect name="state" options={state} errorMessage={errors.state} />
-            <button className="btn" type="submit">
+            <button className="btn" type="submit" disabled={props.isLoading}>
               {props.isLoading && <div className="spinner-border spinner-border-sm text-light mr-5" role="status" />}
               <FormattedMessage id="register" />
             </button>

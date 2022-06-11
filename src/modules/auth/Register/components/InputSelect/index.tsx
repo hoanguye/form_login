@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Field } from 'formik';
-
+import { FormattedMessage } from 'react-intl';
 import { IRegisterParams } from 'models/auth';
 // import { FormattedMessage } from 'react-intl';
 
@@ -36,7 +36,11 @@ const InputSelect = (props: Props) => {
               );
             })}
         </Field>
-        {props.errorMessage && <span className="message_err">{props.errorMessage}</span>}
+        {props.errorMessage && (
+          <div className="message_err">
+            <FormattedMessage id={props.errorMessage} />
+          </div>
+        )}
       </div>
     </>
   );
