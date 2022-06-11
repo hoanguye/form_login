@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import { ILoginParams, ILoginValidation } from '../../../../../models/auth';
 
-import Input from '../Input';
+import Input from '../../../components/Input';
 import './LoginForm2.scss';
 interface Props {
   onSubmit(values: ILoginValidation): void;
@@ -33,7 +33,6 @@ const LoginForm2 = (props: Props) => {
         initialValues={initialValues}
         validationSchema={signUpSchema}
         onSubmit={(values) => {
-          console.log(values);
           handleOnSubmit(values);
         }}
       >

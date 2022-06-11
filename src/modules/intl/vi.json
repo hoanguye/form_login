@@ -4,8 +4,11 @@
   "password": "Mật khẩu",
   "rememberMe": "Lưu thông tin đăng nhập",
   "emailRequire": "Vui lòng nhập địa chỉ email",
+  "nameRequire": "Vui lòng nhập tên",
   "emailInvalid": "Địa chỉ email không hợp lệ",
   "passwordRequire": "Vui lòng nhập mật khẩu",
   "minPasswordInvalid": "Mật khẩu tối thiểu 4 ký tự",
-  "register": "Đăng nhập"
+  "confirmPasswordInvalid": "Mật khẩu nhập lại không hợp lệ",
+  "confirmPasswordRequire": "Vui lòng nhập lại mật khẩu",
+  "register": "Đăng Ký"
 }
