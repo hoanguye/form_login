@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from 'redux/reducer';
@@ -18,20 +18,23 @@ const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>();
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const handleRegister = async (params: IRegisterParams) => {
-    setIsLoading(true);
-    try {
-      const res = await onRegister(params);
-      setIsLoading(false);
-      dispatch(setUserInfo(res.data));
-      Cookies.set(ACCESS_TOKEN_KEY, res.data.token, { expires: res.rememberMe ? 7 : undefined });
-      dispatch(replace(ROUTES.home));
-      return;
-    } catch (error: any) {
-      setIsLoading(false);
-      setErrorMessage(error.response.data.message);
-    }
-  };
+  const handleRegister = useCallback(
+    async (params: IRegisterParams) => {
+      setIsLoading(true);
+      try {
+        const res = await onRegister(params);
+        setIsLoading(false);
+        dispatch(setUserInfo(res.data));
+        Cookies.set(ACCESS_TOKEN_KEY, res.data.token, { expires: res.rememberMe ? 7 : undefined });
+        dispatch(replace(ROUTES.home));
+        return;
+      } catch (error: any) {
+        setIsLoading(false);
+        setErrorMessage(error.response.data.message);
+      }
+    },
+    [dispatch],
+  );
 
   return (
     <div className="wrapper">

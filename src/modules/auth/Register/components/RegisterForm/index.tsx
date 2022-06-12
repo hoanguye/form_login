@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import * as yup from 'yup';
@@ -17,7 +17,7 @@ interface Props {
 const RegisterForm = (props: Props) => {
   // const formik = useFormik();
 
-  const ref = useRef(null);
+  // const ref = useRef(null);
   const genders: any[] = [
     {
       id: 1,
@@ -62,18 +62,18 @@ const RegisterForm = (props: Props) => {
     getData();
   }, []);
 
-  const handleSelectRegion = async (id: number) => {
+  const handleSelectRegion = useCallback(async (id: number) => {
     if (!id) {
       setState([]);
     } else {
       const resCity = await getCity(id);
       setState(resCity.data);
     }
-  };
+  }, []);
   return (
     <div className="form-wrapper">
       <Formik
-        innerRef={ref}
+        // innerRef={ref}
         initialValues={initialValues}
         validationSchema={validation}
         onSubmit={(values) => {

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Field } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import { IRegisterParams } from 'models/auth';
@@ -19,7 +19,8 @@ const InputSelect = (props: Props) => {
   useEffect(() => {
     if (props.handleSelectRegion && props.value?.region) {
       props.handleSelectRegion(Number(props.value?.region));
-    }
+      props.value.state = '';
+    } 
   }, [props.value?.region]);
   return (
     <>
@@ -46,4 +47,4 @@ const InputSelect = (props: Props) => {
   );
 };
 
-export default InputSelect;
+export default memo(InputSelect);
