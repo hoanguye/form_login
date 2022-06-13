@@ -6,6 +6,7 @@ interface Props {
   name: string;
   errorMessage: string | undefined;
   type: string;
+  touched?: boolean;
 }
 
 const Input = (props: Props) => {
@@ -15,7 +16,7 @@ const Input = (props: Props) => {
         <label htmlFor={props.name}>{props.name}</label>
         <Field className="input-element" name={props.name} type={props.type} />
       </div>
-      {props.errorMessage && (
+      {props.errorMessage && props.touched && (
         <div className="message_err">
           <FormattedMessage id={props.errorMessage} />
         </div>

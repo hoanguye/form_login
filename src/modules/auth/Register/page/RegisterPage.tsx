@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from 'redux/reducer';
@@ -9,14 +9,35 @@ import { ACCESS_TOKEN_KEY } from '../../../../utils/constants';
 import { ROUTES } from '../../../../configs/routes';
 import { replace } from 'connected-react-router';
 import RegisterForm from '../components/RegisterForm';
-import { onRegister } from 'utils/axios';
+import { onRegister } from 'utils/api';
 import { IRegisterParams } from 'models/auth';
+import { getCountry, getCity } from 'utils/api';
 import Layout from 'modules/auth/Layouts';
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [locations, setLocations] = useState<any[]>([]);
+  const [state, setState] = useState<any[]>([]);
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>();
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  useEffect(() => {
+    const getData = async () => {
+      const resLocation = await getCountry();
+      setLocations(resLocation.data);
+    };
+    getData();
+  }, []);
+
+  const handleSelectRegion = useCallback(async (id: number) => {
+    if (!id) {
+      setState([]);
+    } else {
+      const resCity = await getCity(id);
+      setState(resCity.data);
+    }
+  }, []);
+
   const onSignUp = useCallback(
     async (params: IRegisterParams) => {
       setIsLoading(true);
@@ -37,7 +58,14 @@ const RegisterPage = () => {
 
   return (
     <Layout>
-      <RegisterForm onSignUp={onSignUp} isLoading={isLoading} errorMessage={errorMessage} />
+      <RegisterForm
+        onSignUp={onSignUp}
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        locations={locations}
+        state={state}
+        handleSelectRegion={handleSelectRegion}
+      />
     </Layout>
   );
 };

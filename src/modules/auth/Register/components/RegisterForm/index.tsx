@@ -1,23 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { Formik, Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import * as yup from 'yup';
 import { IRegisterParams } from 'models/auth';
-
-import { getCountry, getCity } from 'utils/axios';
 import Input from 'modules/auth/components/Input';
 import './RegisterForm.scss';
 import InputSelect from '../InputSelect';
 
 interface Props {
-  onSignUp: (params: IRegisterParams) => Promise<void>;
   isLoading: boolean;
   errorMessage: string | undefined;
+  locations?: any[];
+  state?: any[];
+  onSignUp: (params: IRegisterParams) => Promise<void>;
+  handleSelectRegion?: (id: number) => Promise<void>;
 }
 const RegisterForm = (props: Props) => {
-  // const formik = useFormik();
-
-  // const ref = useRef(null);
   const genders: any[] = [
     {
       id: 1,
@@ -37,7 +35,6 @@ const RegisterForm = (props: Props) => {
     region: '',
     state: '',
   };
-
   const validation = yup.object().shape({
     email: yup.string().email('Invalid email').required('emailRequire'),
     password: yup.string().min(4, 'minPasswordInvalid').required('passwordRequire'),
@@ -50,52 +47,37 @@ const RegisterForm = (props: Props) => {
     region: yup.string().required('regionRequire'),
     state: yup.string().required('stateRequire'),
   });
-
-  const [locations, setLocations] = useState<any[]>([]);
-  const [state, setState] = useState<any[]>([]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const resLocation = await getCountry();
-      setLocations(resLocation.data);
-    };
-    getData();
-  }, []);
-
-  const handleSelectRegion = useCallback(async (id: number) => {
-    if (!id) {
-      setState([]);
-    } else {
-      const resCity = await getCity(id);
-      setState(resCity.data);
-    }
-  }, []);
   return (
     <div className="form-wrapper">
       <Formik
-        // innerRef={ref}
         initialValues={initialValues}
         validationSchema={validation}
         onSubmit={(values) => {
           props.onSignUp(values);
         }}
       >
-        {({ errors, values }) => (
+        {({ errors, values, touched }) => (
           <Form>
             {props.errorMessage && <div className="message-header">{props.errorMessage}</div>}
-            <Input name="email" errorMessage={errors.email} type="email" />
-            <Input name="password" errorMessage={errors.password} type="password" />
-            <Input name="repeatPassword" errorMessage={errors.repeatPassword} type="password" />
-            <Input name="name" errorMessage={errors.name} type="text" />
-            <InputSelect name="gender" options={genders} errorMessage={errors.gender} />
+            <Input name="email" errorMessage={errors.email} type="email" touched={touched.email} />
+            <Input name="password" errorMessage={errors.password} type="password" touched={touched.password} />
+            <Input
+              name="repeatPassword"
+              errorMessage={errors.repeatPassword}
+              type="password"
+              touched={touched.repeatPassword}
+            />
+            <Input name="name" errorMessage={errors.name} type="text" touched={touched.name} />
+            <InputSelect name="gender" options={genders} errorMessage={errors.gender} touched={touched.gender} />
             <InputSelect
               name="region"
-              options={locations}
+              options={props.locations}
               errorMessage={errors.region}
               value={values}
-              handleSelectRegion={handleSelectRegion}
+              handleSelectRegion={props.handleSelectRegion}
+              touched={touched.region}
             />
-            <InputSelect name="state" options={state} errorMessage={errors.state} />
+            <InputSelect name="state" options={props.state} errorMessage={errors.state} touched={touched.state} />
             <button className="btn" type="submit" disabled={props.isLoading}>
               {props.isLoading && <div className="spinner-border spinner-border-sm text-light mr-5" role="status" />}
               <FormattedMessage id="register" />

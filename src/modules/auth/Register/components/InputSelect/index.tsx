@@ -8,10 +8,11 @@ import { IRegisterParams } from 'models/auth';
 import './InputSelect.scss';
 interface Props {
   name: string;
-  options: any[];
+  options: any[] | undefined;
   errorMessage: string | undefined;
-  handleChange?: (e: any) => void;
   value?: IRegisterParams;
+  touched?: boolean | undefined;
+  handleChange?: (e: any) => void;
   handleSelectRegion?: (id: number) => Promise<void>;
 }
 
@@ -20,7 +21,7 @@ const InputSelect = (props: Props) => {
     if (props.handleSelectRegion && props.value?.region) {
       props.handleSelectRegion(Number(props.value?.region));
       props.value.state = '';
-    } 
+    }
   }, [props.value?.region]);
   return (
     <>
@@ -28,7 +29,7 @@ const InputSelect = (props: Props) => {
         <label htmlFor={props.name}>{props.name}</label>
         <Field as="select" className="input-element" name={props.name}>
           <option value="">-- select {props.name} --</option>
-          {props?.options?.length > 0 &&
+          {props?.options &&
             props?.options?.map((item, index) => {
               return (
                 <option key={index} value={item?.id}>
@@ -37,7 +38,7 @@ const InputSelect = (props: Props) => {
               );
             })}
         </Field>
-        {props.errorMessage && (
+        {props.errorMessage && props.touched && (
           <div className="message_err">
             <FormattedMessage id={props.errorMessage} />
           </div>
