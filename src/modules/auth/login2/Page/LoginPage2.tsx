@@ -14,9 +14,7 @@ import { ACCESS_TOKEN_KEY } from '../../../../utils/constants';
 import { ROUTES } from '../../../../configs/routes';
 import { replace } from 'connected-react-router';
 import { getErrorMessageResponse } from '../../../../utils';
-import logo from '../../../../logo-420-x-108.png';
-
-import './LoginPage2.scss';
+import Layout from 'modules/auth/Layouts';
 interface Props {}
 
 const LoginPage2 = (props: Props) => {
@@ -45,10 +43,9 @@ const LoginPage2 = (props: Props) => {
   );
 
   return (
-    <div className="wrapper">
-      <img className="logo" src={logo} alt="logo" />
+    <Layout>
       <LoginForm2 onSubmit={onSubmit} errorMessage={errorMessage} loading={loading} />
-    </div>
+    </Layout>
   );
 };
 

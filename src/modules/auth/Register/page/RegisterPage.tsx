@@ -9,10 +9,9 @@ import { ACCESS_TOKEN_KEY } from '../../../../utils/constants';
 import { ROUTES } from '../../../../configs/routes';
 import { replace } from 'connected-react-router';
 import RegisterForm from '../components/RegisterForm';
-import logo from '../../../../logo-420-x-108.png';
-import './RegisterPage.scss';
 import { onRegister } from 'utils/axios';
 import { IRegisterParams } from 'models/auth';
+import Layout from 'modules/auth/Layouts';
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,10 +36,9 @@ const RegisterPage = () => {
   );
 
   return (
-    <div className="wrapper">
-      <img className="logo" src={logo} alt="logo" />
+    <Layout>
       <RegisterForm onSignUp={onSignUp} isLoading={isLoading} errorMessage={errorMessage} />
-    </div>
+    </Layout>
   );
 };
 
