@@ -18,7 +18,7 @@ const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>();
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const handleRegister = useCallback(
+  const onSignUp = useCallback(
     async (params: IRegisterParams) => {
       setIsLoading(true);
       try {
@@ -39,7 +39,7 @@ const RegisterPage = () => {
   return (
     <div className="wrapper">
       <img className="logo" src={logo} alt="logo" />
-      <RegisterForm onSubmit={handleRegister} isLoading={isLoading} errorMessage={errorMessage} />
+      <RegisterForm onSignUp={onSignUp} isLoading={isLoading} errorMessage={errorMessage} />
     </div>
   );
 };

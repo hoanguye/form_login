@@ -10,7 +10,7 @@ import './RegisterForm.scss';
 import InputSelect from '../InputSelect';
 
 interface Props {
-  onSubmit: (params: IRegisterParams) => Promise<void>;
+  onSignUp: (params: IRegisterParams) => Promise<void>;
   isLoading: boolean;
   errorMessage: string | undefined;
 }
@@ -77,7 +77,7 @@ const RegisterForm = (props: Props) => {
         initialValues={initialValues}
         validationSchema={validation}
         onSubmit={(values) => {
-          props.onSubmit(values);
+          props.onSignUp(values);
         }}
       >
         {({ errors, values }) => (
