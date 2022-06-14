@@ -12,7 +12,6 @@ interface Props {
   errorMessage: string | undefined;
   value?: IRegisterParams;
   touched?: boolean | undefined;
-  handleChange?: (e: any) => void;
   handleSelectRegion?: (id: number) => Promise<void>;
 }
 
