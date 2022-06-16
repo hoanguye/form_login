@@ -20,3 +20,8 @@ export const onRegister = async (params: IRegisterParams) => {
     return res.data;
 }
 
+
+export const getInfo = async (page:number) => {
+    const res = await axios.get(`https://jsonplaceholder.typicode.com/photos?_start=${page}&_end=${page + 10}`);
+    return res.data;
+}

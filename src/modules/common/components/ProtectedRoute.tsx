@@ -16,6 +16,7 @@ const ProtectedRoute = (props: Props) => {
 
   return (
     <Redirect
+      
       to={{
         pathname: ROUTES.login,
       }}

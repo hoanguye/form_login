@@ -18,6 +18,8 @@ const composeEnhancers =
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['info']
+
 };
 
 // export cons

@@ -1,0 +1,43 @@
+.info_item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.info_item img {
+    margin-right: 30px;
+}
+.info_item div {
+    flex: 1;
+}
+.info_item +.info_item {
+    margin-top: 30px;
+}
+.info_item div span {
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+.info_item div span:first-child {
+    border: 1px solid transparent;
+    
+}
+.info_item div span:first-child:hover {
+    border: 1px solid #888;
+}
+.info_item div span:first-child,
+.info_item div input {
+    /* display: block; */
+    margin-bottom: 15px;
+    font-size: 18px;
+    width: 100%;
+    padding: 0 18px;
+}
+
+.info_item div input {
+    height: 40px;
+}
+
+.info_item div span:nth-child(2) {
+    color: red;
+}
