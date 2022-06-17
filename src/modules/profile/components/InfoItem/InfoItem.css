@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    padding: 4px;
 }
 
 .info_item img {
@@ -18,26 +19,23 @@
     display: flex;
     align-items: center;
 }
-.info_item div span:first-child {
-    border: 1px solid transparent;
-    
-}
-.info_item div span:first-child:hover {
-    border: 1px solid #888;
-}
-.info_item div span:first-child,
 .info_item div input {
-    /* display: block; */
     margin-bottom: 15px;
     font-size: 18px;
     width: 100%;
     padding: 0 18px;
-}
-
-.info_item div input {
+    border: 1px solid transparent;
     height: 40px;
 }
-
-.info_item div span:nth-child(2) {
+.info_item div input:hover {
+    border: 1px solid #ccc
+}
+.info_item div input:focus {
+    border: 1px solid #888;
+}
+.info_item div span {
     color: red;
+}
+.blur {
+    background-color: rgb(199, 196, 194);
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setListInfo } from '../redux/profileReducer';
+import { setListInfo, updateInfo } from '../redux/profileReducer';
 import { getInfo } from 'utils/api';
 
 import Info from '../components/Info';
@@ -25,16 +25,17 @@ const InfoPage = (props: Props) => {
     getData();
   }, [dispatch, page]);
 
+  // const onConfirm = (id: number, value: string) => {
+  //   dispatch(updateInfo({id, value}))
+  // }
   window.onscroll = () => {
-    console.log(12);
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
       setPage(page + 10);
     }
   };
   return (
     <div>
-      <Info isLoading={isLoading}/>
-      {/* {isLoading && <div className="spinner-border spinner-border-sm text-light mr-5" role="status" />} */}
+      <Info isLoading={isLoading} />
     </div>
   );
 };

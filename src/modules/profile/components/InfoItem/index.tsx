@@ -1,28 +1,19 @@
-import React, { useState, memo, useRef } from 'react';
+import React, { useState, memo } from 'react';
 import { InfoState } from '../../redux/profileReducer';
 import './InfoItem.css';
 interface Props {
   data: InfoState;
+  blur?: boolean;
 }
 
-const InfoItem = ({ data }: Props) => {
-  const [isInput, setIsInput] = useState<boolean>(false);
+const InfoItem = ({ data, blur }: Props) => {
   const [title, setTitle] = useState<string>(data.title);
+  // const [data, setData] = useState<string>(data.data);
   return (
-    <div className="info_item">
+    <div className={`info_item ${blur && 'blur'}`}>
       <img src={data.thumbnailUrl} alt="" />
       <div>
-        {isInput ? (
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
-        ) : (
-          <span
-            onClick={() => {
-              setIsInput(!isInput);
-            }}
-          >
-            {data.title}
-          </span>
-        )}
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
         <span>{Date.now()}</span>
       </div>
     </div>
