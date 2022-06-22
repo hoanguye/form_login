@@ -4,12 +4,13 @@ import { combineReducers } from 'redux';
 import authReducer, { AuthState } from '../modules/auth/redux/authReducer';
 import intlReducer, { IntlState } from '../modules/intl/redux/intlReducer';
 import profileReducer, { } from '../modules/profile/redux/profileReducer'
-
+import payrollReducer from 'modules/payroll/redux/payrollReducer'
 export interface AppState {
   router: RouterState;
   intl: IntlState;
   profile: AuthState;
-  info: any
+  info: any,
+  payroll: any;
 }
 
 export default function createRootReducer(history: History) {
@@ -17,7 +18,8 @@ export default function createRootReducer(history: History) {
     router: connectRouter(history),
     intl: intlReducer,
     profile: authReducer,
-    info: profileReducer
+    info: profileReducer,
+    payroll: payrollReducer,
   });
 }
 

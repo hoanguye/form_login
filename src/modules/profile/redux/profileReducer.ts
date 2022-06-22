@@ -19,7 +19,7 @@ export interface InfoState {
 const actions = { setListInfo, updateInfo }
 
 type Action = ActionType<typeof actions>;
-export default function reducer(state = [], action: Action) {
+export default function reducer(state =[], action: Action) {
     switch (action.type) {
         case getType(setListInfo):
             return [...state, ...action.data];

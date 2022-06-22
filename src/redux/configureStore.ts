@@ -18,7 +18,7 @@ const composeEnhancers =
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['info']
+  blacklist: ['info', 'payroll']
 
 };
 

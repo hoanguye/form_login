@@ -1,0 +1,13 @@
+.icon {
+    color: rgb(231, 55, 55);
+    font-size: 20px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.invoice {
+    max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

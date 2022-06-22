@@ -8,7 +8,6 @@ interface Props {
 
 const InfoItem = ({ data, blur }: Props) => {
   const [title, setTitle] = useState<string>(data.title);
-  // const [data, setData] = useState<string>(data.data);
   return (
     <div className={`info_item ${blur && 'blur'}`}>
       <img src={data.thumbnailUrl} alt="" />

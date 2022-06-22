@@ -1,0 +1,50 @@
+
+$primary-color: #1da9df;
+$delete-color: rgb(201, 80, 80);
+
+.input-select {
+    width: 130px;
+    text-transform: capitalize;
+    .selected {
+        border: 1px solid #000;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 8px;
+        padding: 4px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        min-height: 39px;
+        .input_icon {
+                font-size: 17px;
+                margin-left: 4px;
+            }
+    }
+    .option_list {
+        margin-top: 5px;
+        padding: 5px 0px;
+        box-shadow: 0 0 12px #999;
+        font-size: 17px;
+        border-radius: 4px;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        z-index: 4;
+        background-color: white;
+        & div {
+            cursor: pointer;
+            padding: 2px 8px;
+            background-color: white;
+            transition: all 0.2s ease;
+            &:not(:first-child) {
+                margin-top:3px;
+            }
+        }
+        & div:hover {
+            background-color: rgb(185, 166, 166); 
+        }
+    }
+}
